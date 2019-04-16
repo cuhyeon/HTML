@@ -1,0 +1,105 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	/*
+	Ex02_JDBC_JoinForm.jsp 에서 --> action="Ex02_JDBC_JoinOK.jsp"
+	1. 한글처리
+	2. PARAMETER 받기 (확인하기)
+
+
+<%
+	/*
+	1. 한글처리
+	2. 데이터 받기 (ID, PWD)
+	3. DB 연동 (SQL)
+	4. 업무(로직)처리
+	
+		id, pwd를 parameter로 받아서 회원인지 아닌지 판단
+		
+		--판단조건
+		1. ID 존재, PWD(0) > 회원 > Main page 이동 > session.setAttribute("userid",ID값);
+		2. ID 존재, PWD(x) > 다시 한번 로그인 처리
+		3. ID 존재(x) > 회원가입 페이지로 이동 처리
+		
+		1.EX02_JDBC_Main.jsp
+		2.Ex02_JDBC_Log in.jsp
+		3. Ex02_JDBC_JoinForm.jsp
+		
+		> sql : select id, pwd from koreamember where id = ?
+		> sql : select count from koreamember where id = ? 
+				
+		>> SELECT ....
+		1. 결과 없는 경우
+		2
+		2. Single row
+		
+		3. Multi row (회원데이터)
+		if(rs.next()) {
+		do {
+				System.out.println(rs.getInt(1));
+			}while(rs.next());
+		} else {
+			회원이 아닌 경우
+		}
+		요구사항
+		https://cafe.naver.com/kangnamfullstack/665
+		
+		기능적 요구사항
+		로그인이 가능 
+		
+		... 
+		비기능적 요구사항
+		SingletonHelper톤을 사용해서 코드 중복성을 줄인다.
+	*/
+	request.setCharacterEncoding("UTF-8");
+			
+	String id = request.getParameter("id");
+	String pass = request.getParameter("pwd");
+	
+	Connention conn = null;
+
+
+	try {
+		conn = Singletonhelper.getConnection("oracle");
+		String sql = "insert into koreamember(id,pwd,name,age,gender,email,ip) values(?,?,?,?,?,?,?)";
+		pstmt = conn.prepareStatement(sql);
+
+		pstmt.setString(1, id);
+		pstmt.setString(2, pass);
+		pstmt.setString(3, name);
+		pstmt.setInt(4, age);
+		pstmt.setString(5, gender);
+		pstmt.setString(6, email);
+		pstmt.setString(7, request.getRemoteAddr());
+
+		int result = pstmt.executeUpdate();
+		if (result != 0) {
+			out.print("<script>");
+			out.print("location.href='Ex02_JDBC_Login.jsp'");
+			out.print("</script>");
+		} else { // pstmt.executeUpdate(); 정상실행되고 나서 result 결과값을 가지고 ...  밑에꺼 의미없다  catch에 써줘야됭
+			out.print("<script>");
+			out.print("alert('무조건 가입 실패')");
+			out.print("</script>");
+		}
+
+	}catch(Exception e){
+		//pstmt.executeUpdate(); 실행도중  
+		//실제 페이지 이동은 예외처리에서 ...
+		String msg = e.getMessage();
+		out.print("<script>");
+		out.print("alert('오류발생');");
+		out.print("location.href='Ex02_JDBC_JoinForm.jsp'");
+		out.print("</script>");
+	}finally{
+		System.out.println("Finally");
+		if(pstmt != null)try{pstmt.close();}catch(Exception e){}
+		if(conn != null)try{conn.close();}catch(Exception e){}
+	}
+%>
+
+

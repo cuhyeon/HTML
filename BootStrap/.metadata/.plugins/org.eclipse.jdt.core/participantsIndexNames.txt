@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\Git.workspace\HTML-CSS\BootStrap\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1472424594.index
+\WebJSP_JDBC\src
+C:\Git.workspace\HTML-CSS\BootStrap\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\73425782.index
+\WebJSP_JDBC\src

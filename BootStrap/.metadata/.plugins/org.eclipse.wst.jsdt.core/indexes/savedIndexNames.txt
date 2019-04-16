@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Git.workspace\HTML-CSS\BootStrap\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1472424594.index
+1894539898.index
+3833045593.index
+2683183488.index
+1761423782.index
+465564198.index

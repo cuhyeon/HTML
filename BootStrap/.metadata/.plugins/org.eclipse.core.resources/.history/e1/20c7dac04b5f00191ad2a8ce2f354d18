@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ 
+ <% 
+ /*
+ 1. 한글처리
+ 2. 데이터 받기 (ID, PWD)
+ 3. DB 연동 (SQL)
+ 4. 업무(로직)처리
+ 
+ 	id, pwd를 parameter로 받아서 회원인지 아닌지 판단
+ 	
+ 	--판단조건
+ 	1. ID 존재, PWD(0) > 회원 > Main page 이동 > session.setAttribute("userid",ID값);
+ 	2. ID 존재, PWD(x) > 다시 한번 로그인 처리
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ */
+ %>
